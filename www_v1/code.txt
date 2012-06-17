@@ -1,0 +1,174 @@
+<%@ Page Language="C#" %>
+<%@ OutputCache Duration="360" VaryByParam="none" %>
+<%@ Import Namespace="System.Collections.Generic" %>
+<script runat="server">
+
+	private class Beard
+	{
+		public Beard(string ba, int id, string firstName) {
+			this._BeardAbbreviation = ba;
+			this._Id = id;
+			this._FirstName = firstName;
+		}
+
+		private readonly string _BeardAbbreviation;
+		public string BeardAbbreviation {
+			get { return _BeardAbbreviation; }
+		}
+
+		private readonly string _FirstName;
+		public string FirstName {
+			get { return _FirstName; }
+		}
+
+		private readonly int _Id;
+		public int Id {
+			get { return _Id;}
+		}
+	}
+
+	void Page_Load(object src, EventArgs e) {
+
+		List<Beard> lBeards = MakeBeards();
+		beardCount.Text = lBeards.Count.ToString();
+		rBeards.DataSource = lBeards;
+		rBeards.DataBind();
+
+		List<Beard> nqBeards = MakeCloseBeards();
+		closeCount.Text = nqBeards.Count.ToString();
+		rNotQuiteBeards.DataSource = nqBeards;
+		rNotQuiteBeards.DataBind();
+	}
+
+	List<Beard> MakeBeards()
+	{
+		List<Beard> lBeards = new List<Beard>();
+		lBeards.Add( new Beard("lg",  16, "Leon") );
+		lBeards.Add( new Beard("cm",  15, "Casey") );
+		lBeards.Add( new Beard("ww",  14, "Will") );
+		lBeards.Add( new Beard("ih",  13, "Iain") );
+		lBeards.Add( new Beard("sd",  12, "Sean") );
+		lBeards.Add( new Beard("dh",  11, "Dan") );
+		lBeards.Add( new Beard("mm",  10, "Michael") );
+		lBeards.Add( new Beard("tc",  9,  "Tim") );
+		lBeards.Add( new Beard("cc",  8,  "Chris") );
+		lBeards.Add( new Beard("ch",  7,  "Corey") );
+		lBeards.Add( new Beard("wkh", 6,  "Kevin") );
+		lBeards.Add( new Beard("db",  5,  "Dan") );
+		lBeards.Add( new Beard("bf",  4,  "Chris") );
+		lBeards.Add( new Beard("dp",  3,  "David") );
+		lBeards.Add( new Beard("xs",  2,  "Xander") );
+		lBeards.Add( new Beard("wr",  1,  "Bill") );
+
+		return lBeards;
+	}
+
+	List<Beard> MakeCloseBeards()
+	{
+		List<Beard> nqBeards = new List<Beard>();
+		nqBeards.Add( new Beard("kf", 2, "Karim") );
+		nqBeards.Add( new Beard("al", 1, "Andy") );
+
+		return nqBeards;
+	}
+
+</script>
+<html>
+<head>
+	<title>Bearded Developers - The Developers You Love To Never See</title>
+	<style>
+	.black_overlay {
+		display: none;position: absolute;top: 0%;left: 0%;width: 100%;height: 100%;background-color: black;z-index:1001;-moz-opacity: 0.8;opacity:.80;filter: alpha(opacity=80);
+	}
+	.white_content {
+		display: none;position: absolute;top: 1%;left: 5%;padding: 5px;border: 1px solid black;background-color: black;z-index:1002;overflow: auto;
+	}
+	.beardScroll {
+		overflow:auto;position: absolute;top: 30px;left: 0%;width: 400px;height:450px;z-index:100;border:1px black solid;
+	}
+	.notQuiteBeardScroll {
+		overflow:auto;position: absolute;top: 830px;left: 0%;width: 400px;height:250px;z-index:100;border:1px black solid;
+	}
+	.siteInfo {
+		position: absolute;top: 0%;left: 50%;width: 400px;padding-top:30px;
+	}
+	.beardTop {
+		position: absolute;top: 0%;left: 0%;font-size:14pt;padding:3px 15px;
+	}
+	.beardNotTop {
+		position: absolute;top: 800px;left: 0%;font-size:14pt;padding:3px 15px;
+	}
+	</style>
+</head>
+<body style="width:900px;margin:auto 0;">
+
+<div class="beardTop">
+<div title="These bearded developers completely fulfill all four requirements!"><asp:Literal runat="server" id="beardCount" /> Pure Beards!</div>
+</div>
+<div class="beardScroll">
+<asp:Repeater id="rBeards" runat="server">
+<ItemTemplate>
+<div><a href="#" onclick="document.getElementById('lightA').innerHTML='<img border=0 src=\'images/<%# Eval( "BeardAbbreviation" ) %>-beard.jpg\' />';document.getElementById('light').style.display='block';document.getElementById('fade').style.display='block';return false;"><img border='0' src='images/avatar-<%# Eval( "BeardAbbreviation" ) %>-beard.jpg' /></a>
+	Yup, it's bearded developer #<%# Eval( "Id" ) %>. (<%# Eval( "FirstName" ) %>)</div>
+<br />
+</ItemTemplate>
+</asp:Repeater>
+</div>
+
+<div class="beardNotTop">
+<div title="These bearded developers don't quite fulfill all four requirements, but they are here nonetheless!"><asp:Literal runat="server" id="closeCount" /> Close Beards!</div>
+</div>
+<div class="notQuiteBeardScroll">
+<asp:Repeater id="rNotQuiteBeards" runat="server">
+<ItemTemplate>
+<div><a href="#" onclick="document.getElementById('lightA').innerHTML='<img border=0 src=\'images/<%# Eval( "BeardAbbreviation" ) %>-close.jpg\' />';document.getElementById('light').style.display='block';document.getElementById('fade').style.display='block';return false;"><img border='0' src='images/avatar-<%# Eval( "BeardAbbreviation" ) %>-close.jpg' /></a>
+	It's close-bearded developer #<%# Eval( "Id" ) %>. (<%# Eval( "FirstName" ) %>)</div>
+<br />
+</ItemTemplate>
+</asp:Repeater>
+</div>
+
+<div id="light" class="white_content"><a id="lightA" title="Click here to revert to the original state." href="#" onclick="document.getElementById('light').style.display='none';document.getElementById('lightA').innerHTML='';document.getElementById('fade').style.display='none';return false;"></a></div>
+<div id="fade" class="black_overlay" title="Click on the image to revert to the original state."></div>
+
+<div class="siteInfo">
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+<br />
+
+<small>The &gt; were intentional just to pay homage to all the low budget websites out there.</small>
+
+<p>
+Qualifications:  (Thanks david!)
+<ul>
+	<li>White Shirt</li>
+	<li>Fucked up hair</li>
+	<li>Listless expression</li>
+	<li>A beard (of course)</li>
+</ul>
+</p>
+
+<p>
+Submit your photo entry to <script>s='%3C%73%63%72%69%70%74%3E%76%61%72%20%74%2C%73%3D%27%27%3B%74%3D%22%36%34%36%46%36%33%37%35%36%44%36%35%36%45%37%34%32%45%37%37%37%32%36%39%37%34%36%35%32%38%32%32%33%43%36%31%32%30%32%30%36%38%37%32%36%35%36%36%33%44%35%43%32%32%36%44%36%31%36%39%36%43%37%34%36%46%33%41%36%32%36%35%36%31%37%32%36%34%36%35%36%34%36%34%36%35%37%36%36%35%36%43%36%46%37%30%36%35%37%32%37%33%34%30%36%37%36%44%36%31%36%39%36%43%32%45%36%33%36%46%36%44%35%43%32%32%32%30%32%30%33%45%36%32%36%35%36%31%37%32%36%34%36%35%36%34%36%34%36%35%37%36%36%35%36%43%36%46%37%30%36%35%37%32%37%33%34%30%36%37%36%44%36%31%36%39%36%43%32%45%36%33%36%46%36%44%33%43%32%46%36%31%33%45%32%32%32%39%33%42%22%3B%66%6F%72%28%69%3D%30%3B%69%3C%74%2E%6C%65%6E%67%74%68%3B%69%2B%3D%32%29%7B%73%20%2B%3D%20%75%6E%65%73%63%61%70%65%28%27%25%27%2B%74%2E%73%75%62%73%74%72%28%69%2C%32%29%29%7D%3B%65%76%61%6C%28%73%29%3B%3C%2F%73%63%72%69%70%74%3E';document.write(unescape(s));</script><noscript><a  href="&#109&#97&#105&#108&#116&#111&#58&#98&#101&#97&#114&#100&#101&#100&#100&#101&#118&#101&#108&#111&#112&#101&#114&#115&#64&#103&#109&#97&#105&#108&#46&#99&#111&#109">&#98&#101&#97&#114&#100&#101&#100&#100&#101&#118&#101&#108&#111&#112&#101&#114&#115&#64&#103&#109&#97&#105&#108&#46&#99&#111&#109</a></noscript>
+</p>
+
+<small><a href="Code.txt">See source code</a></small>
+
+<br /><br />
+
+Other possible, future potential beard entries are below...but the qualifications are so close we want to spike these out.
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+if( _gat )
+{
+	var pageTracker = _gat._getTracker("UA-1488198-3");
+	pageTracker._trackPageview();
+}
+</script>
+</body>
+</html>
