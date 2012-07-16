@@ -1,8 +1,55 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿@model IEnumerable<BD.Website.DbModels.SubmittedDeveloper>
+
+@{
+    ViewBag.Title = "Index";
 }
 
-<h2>@ViewBag.Message</h2>
+<h2>Index</h2>
+
 <p>
-    To learn more about ASP.NET MVC visit <a href="http://asp.net/mvc" title="ASP.NET MVC Website">http://asp.net/mvc</a>.
+    @Html.ActionLink("Create New", "Create")
 </p>
+<table>
+    <tr>
+        <th>
+            FullName
+        </th>
+        <th>
+            Languages
+        </th>
+        <th>
+            Website
+        </th>
+        <th>
+            Email
+        </th>
+        <th>
+            SubmittedDate
+        </th>
+      
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.FullName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Languages)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Website)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SubmittedDate)
+        </td>
+        <td>
+        </td>
+    </tr>
+}
+
+</table>

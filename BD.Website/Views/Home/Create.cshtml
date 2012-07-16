@@ -1,0 +1,65 @@
+﻿@model BD.Website.DbModels.SubmittedDeveloper
+
+@{
+    ViewBag.Title = "CreateSubmittedDeveloper";
+}
+
+<h2>CreateSubmittedDeveloper</h2>
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(false)
+    <fieldset>
+        <legend>SubmittedDeveloper</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.FullName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.FullName)
+            @Html.ValidationMessageFor(model => model.FullName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Languages)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Languages)
+            @Html.ValidationMessageFor(model => model.Languages)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Website)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Website)
+            @Html.ValidationMessageFor(model => model.Website)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Email)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Email)
+            @Html.ValidationMessageFor(model => model.Email)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.SubmittedDate)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.SubmittedDate)
+            @Html.ValidationMessageFor(model => model.SubmittedDate)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
