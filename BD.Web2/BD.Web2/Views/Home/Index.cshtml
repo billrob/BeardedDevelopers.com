@@ -1,0 +1,79 @@
+﻿@using BD.Web2
+@model List<BeardedEntry>
+@{
+    ViewBag.Title = "Home";
+}
+
+
+<div class="beardTop">
+<div title="These bearded developers completely fulfill all four requirements!">@Model.Count(x=>x.FullBeard == true) Pure Beards!</div>
+</div>
+<div class="beardScroll">
+
+@foreach (var entry in Model.Where(x=>x.FullBeard == true).OrderByDescending(x=>x.FullBeard == true))
+{
+<div><a href="#" onclick="document.getElementById('lightA').innerHTML='<img border=0 src=\'Content/images/@entry.Image\' />';document.getElementById('light').style.display='block';document.getElementById('fade').style.display='block';return false;"><img border='0' width="100px" src='Content/images/@entry.Image' /></a>
+	Yup, it's bearded developer #@entry.Number. (@entry.Name)</div>
+
+<br />
+    
+}
+
+</div>
+
+<div class="beardNotTop">
+<div title="These bearded developers don't quite fulfill all four requirements, but they are here nonetheless!">@Model.Count(x=>x.FullBeard == false) Close Beards!</div>
+</div>
+<div class="notQuiteBeardScroll">
+
+@foreach (var entry in Model.Where(x => x.FullBeard == false).OrderByDescending(x => x.FullBeard == false))
+{
+<div><a href="#" onclick="document.getElementById('lightA').innerHTML='<img border=0 src=\'Content/images/@entry.Image\' />';document.getElementById('light').style.display='block';document.getElementById('fade').style.display='block';return false;"><img border='0' src='Content/images/@entry.Image' /></a>
+	It's close-bearded developer #@entry.Number. (@entry.Name)</div>
+<br />
+
+}
+
+</div>
+
+<div id="light" class="white_content"><a id="lightA" title="Click here to revert to the original state." href="#" onclick="document.getElementById('light').style.display='none';document.getElementById('lightA').innerHTML='';document.getElementById('fade').style.display='none';return false;"></a></div>
+<div id="fade" class="black_overlay" title="Click on the image to revert to the original state."></div>
+
+<div class="siteInfo">
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+<br />
+
+<small>The &gt; were intentional just to pay homage to all the low budget websites out there.</small>
+
+<p>
+Qualifications:  (Thanks david!)
+<ul>
+	<li>White Shirt</li>
+	<li>Fucked up hair</li>
+	<li>Listless expression</li>
+	<li>A beard (of course)</li>
+</ul>
+</p>
+
+<p>
+Submit your photo entry to <script>                               s = '%3C%73%63%72%69%70%74%3E%76%61%72%20%74%2C%73%3D%27%27%3B%74%3D%22%36%34%36%46%36%33%37%35%36%44%36%35%36%45%37%34%32%45%37%37%37%32%36%39%37%34%36%35%32%38%32%32%33%43%36%31%32%30%32%30%36%38%37%32%36%35%36%36%33%44%35%43%32%32%36%44%36%31%36%39%36%43%37%34%36%46%33%41%36%32%36%35%36%31%37%32%36%34%36%35%36%34%36%34%36%35%37%36%36%35%36%43%36%46%37%30%36%35%37%32%37%33%34%30%36%37%36%44%36%31%36%39%36%43%32%45%36%33%36%46%36%44%35%43%32%32%32%30%32%30%33%45%36%32%36%35%36%31%37%32%36%34%36%35%36%34%36%34%36%35%37%36%36%35%36%43%36%46%37%30%36%35%37%32%37%33%34%30%36%37%36%44%36%31%36%39%36%43%32%45%36%33%36%46%36%44%33%43%32%46%36%31%33%45%32%32%32%39%33%42%22%3B%66%6F%72%28%69%3D%30%3B%69%3C%74%2E%6C%65%6E%67%74%68%3B%69%2B%3D%32%29%7B%73%20%2B%3D%20%75%6E%65%73%63%61%70%65%28%27%25%27%2B%74%2E%73%75%62%73%74%72%28%69%2C%32%29%29%7D%3B%65%76%61%6C%28%73%29%3B%3C%2F%73%63%72%69%70%74%3E'; document.write(unescape(s));</script><noscript><a  href="&#109&#97&#105&#108&#116&#111&#58&#98&#101&#97&#114&#100&#101&#100&#100&#101&#118&#101&#108&#111&#112&#101&#114&#115&#64&#103&#109&#97&#105&#108&#46&#99&#111&#109"><b style="color:black;background-color:#ffff66">&#98&#101&#97&#114&#100&#101&#100&#100&#101&#118&#101&#108&#111&#112&#101&#114&#115</b>&#64&#103&#109&#97&#105&#108&#46&#99&#111&#109</a></noscript>
+</p>
+
+<small><a href="Code.txt">See source code</a></small>
+
+<br /><br />
+
+Other possible, future potential beard entries are below...but the qualifications are so close we want to spike these out.
+</div>
+
+<script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+    if (_gat) {
+        var pageTracker = _gat._getTracker("UA-1488198-3");
+        pageTracker._trackPageview();
+    }
+</script>
